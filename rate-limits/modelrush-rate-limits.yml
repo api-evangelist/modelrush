@@ -1,0 +1,14 @@
+generated: '2026-09-10'
+method: searched
+source: https://modelrush.ai/docs/concepts/errors + https://modelrush.ai/docs/api-keys
+limit_count: 0
+note: ModelRush documents rate limiting behavior but publishes no numeric limits.
+  429 responses carry a Retry-After header and the docs state "changing keys to
+  bypass limits is not supported"; retry guidance is bounded exponential backoff
+  with jitter. No RateLimit-* or X-RateLimit-* quota headers are documented, and
+  none were observed on a live keyless GET /v1/models response (2026-09-10).
+signaling:
+  status: 429
+  headers:
+  - Retry-After
+limits: []

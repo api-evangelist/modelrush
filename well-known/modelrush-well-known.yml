@@ -1,0 +1,59 @@
+generated: '2026-09-10'
+method: probed
+source: live HTTPS probes of modelrush.ai, www.modelrush.ai, api.modelrush.ai
+note: No /.well-known/ documents are served on any ModelRush host. Every path below
+  returned a 404 (an HTML not-found shell from the Vercel-hosted app) on 2026-09-10;
+  www.modelrush.ai 308-redirects every path to the apex, which then 404s. Recorded
+  absence -- no WellKnown/SecurityTxt pointer is wired because nothing was served.
+hosts:
+- host: modelrush.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: www.modelrush.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 308
+    note: redirects to apex modelrush.ai, which 404s
+  - path: /.well-known/openid-configuration
+    status: 308
+  - path: /.well-known/oauth-authorization-server
+    status: 308
+  - path: /.well-known/oauth-protected-resource
+    status: 308
+  - path: /.well-known/api-catalog
+    status: 308
+  - path: /.well-known/ai-plugin.json
+    status: 308
+- host: api.modelrush.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404

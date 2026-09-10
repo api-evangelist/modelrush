@@ -1,0 +1,13 @@
+generated: '2026-09-10'
+method: generated
+source: openapi/modelrush-public.openapi.yaml + https://modelrush.ai/docs
+note: ModelRush's own "SKILLS" integration is labelled Planned with nothing
+  published (https://modelrush.ai/docs/integrations/skills); these skills are
+  API Evangelist-authored, grounded in the published OpenAPI operationIds.
+skills:
+- name: modelrush-chat-completion
+  file: modelrush-chat-completion.md
+  api: ModelRush API
+- name: modelrush-async-media-generation
+  file: modelrush-async-media-generation.md
+  api: ModelRush API

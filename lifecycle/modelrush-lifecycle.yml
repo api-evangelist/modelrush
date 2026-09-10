@@ -1,0 +1,31 @@
+generated: '2026-09-10'
+method: searched
+source: https://modelrush.ai/docs/changelog + https://modelrush.ai/docs + live probes
+versioning:
+  scheme: dated registry revisions
+  note: The model registry is versioned with dated revisions (e.g. 2026-09-08.1),
+    surfaced in GET /models responses, the x-modelrush-registry-revision response
+    header, and the OpenAPI info.version (2026-09-04.3). No /v2 path versioning is
+    published; the API path prefix is /v1.
+surface_maturity:
+  note: Docs label every surface Live, Beta, or Planned (introduced 2026-08-11) so
+    roadmap items are distinguishable from production availability. MCP server,
+    CLI, and agent skills are labelled Planned; the model APIs are Live.
+change_policy:
+  statement: '"Breaking contract changes will be called out here before they take
+    effect whenever operationally possible." (docs/changelog)'
+  channel: https://modelrush.ai/docs/changelog
+deprecation:
+  policy_published: false
+  sunset_headers: false
+  note: No deprecation policy page and no Deprecation/Sunset (RFC 8594) headers are
+    documented; no operation in the published OpenAPI is marked deprecated. Model
+    retirement is handled through the registry -- callers are told to treat GET
+    /models as the source of truth for what is callable.
+status_page:
+  published: false
+  note: No status page found; status.modelrush.ai returned 404 on 2026-09-10 and no
+    status link appears in the docs.
+sla:
+  published: false
+deprecated_operations: []

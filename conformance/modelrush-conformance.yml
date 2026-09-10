@@ -1,0 +1,51 @@
+generated: '2026-09-10'
+method: derived
+source: openapi/modelrush-public.openapi.yaml + https://modelrush.ai/docs + live
+  probes of api.modelrush.ai
+conformance:
+- id: openai-chat-completions-compat
+  conforms: true
+  domain_standard: true
+  evidence: The contract itself declares compatibility -- POST /chat/completions is
+    described in the OpenAPI as "an OpenAI-compatible request shape"
+    (ChatCompletionRequest carries model/messages/stream/tools/tool_choice/
+    parallel_tool_calls/response_format/stream_options), and the developer-tools
+    repo ships a provider-neutral compatibility test harness
+    (github.com/Moonveil-AI/modelrush-developer-tools/compatibility-test). The
+    OpenAI Chat Completions wire shape is the de-facto domain standard for hosted
+    AI inference; a client already speaking it integrates by swapping base URL and
+    key.
+- id: sse-streaming
+  conforms: true
+  evidence: POST /chat/completions declares a text/event-stream response for
+    stream:true in the OpenAPI.
+- id: webhook-hmac-signatures
+  conforms: true
+  evidence: Signed webhooks with x-modelrush-signature (t=TIMESTAMP,v1=HMAC,
+    HMAC-SHA256) and x-modelrush-event-id deduplication
+    (https://modelrush.ai/docs/concepts/webhooks).
+- id: oauth2
+  conforms: false
+  evidence: The only securityScheme is http bearer with static API keys; no OAuth2
+    flows are published and /.well-known/oauth-authorization-server 404s on every
+    host.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration 404s on modelrush.ai and
+    api.modelrush.ai (probed 2026-09-10).
+- id: rfc9457
+  conforms: false
+  evidence: Errors are a custom application/json {error:{code,message,type}}
+    envelope, not application/problem+json.
+- id: pagination
+  conforms: false
+  evidence: List endpoints return complete list envelopes with no cursor or page
+    parameters in the OpenAPI.
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key header or replay-protection mechanism is documented
+    on any write operation (see conventions/modelrush-conventions.yml).
+- id: rate-limit-headers
+  conforms: partial
+  evidence: 429 with Retry-After is documented (docs/concepts/errors); no
+    RateLimit-*/X-RateLimit-* quota headers are published.

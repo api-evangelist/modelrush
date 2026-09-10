@@ -1,0 +1,31 @@
+generated: '2026-09-10'
+method: searched
+source: openapi/modelrush-public.openapi.yaml
+docs: https://modelrush.ai/docs/api-keys
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: ModelRush API key
+  sources:
+  - openapi/modelrush-public.openapi.yaml
+  docs: https://modelrush.ai/docs/api-keys
+  notes:
+  - 'Keys are sent only as an HTTP Authorization Bearer header: "ModelRush does
+    not accept keys in query strings."'
+  - Keys are server-side secrets -- store in a secret manager or server-side env
+    var; never in client-side code, binaries, source control, or logs.
+  - 'Rotation guidance: create a replacement key, deploy it, verify traffic, then
+    revoke the old key (immediate revocation only when compromised).'
+  - Missing, invalid, or revoked credentials return 401; rotating keys to bypass
+    rate limits is not supported.
+  - No scoping or granular permissions are documented; no OAuth2/OIDC surface
+    exists (well-known discovery documents 404 on every host, probed 2026-09-10).
+keyless_surface:
+- operationId: listModels
+  path: GET /v1/models
+- operationId: listRegions
+  path: GET /v1/regions

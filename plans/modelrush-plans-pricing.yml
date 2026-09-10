@@ -1,0 +1,44 @@
+generated: '2026-09-10'
+method: searched
+source: https://modelrush.ai/pricing
+plan_count: 0
+model: pay-as-you-go
+note: ModelRush publishes no subscription tiers -- pricing is pure usage-based,
+  per model, per operation, per region, denominated in USD, generated from the
+  same versioned registry as the gateway. Prepaid credit is purchased via Stripe
+  Checkout in $10, $50, and $100 packs. "Evaluation requests record real usage
+  without deducting credits."
+billing:
+  currency: USD
+  credit_packs: [10, 50, 100]
+  units:
+  - surface: chat/text
+    unit: per 1M tokens (input and output priced separately)
+  - surface: text-to-speech
+    unit: per character
+  - surface: audio transcription
+    unit: per second
+  - surface: image generation/editing
+    unit: per generation
+  - surface: video generation
+    unit: per second (resolution-dependent)
+  - surface: voice management
+    unit: per operation
+regional_variation: true
+examples:
+- model: deepseek-v4-flash
+  region: cn-beijing
+  input_per_1m_tokens_usd: 0.4664
+- model: deepseek-v4-flash
+  region: sg-singapore
+  input_per_1m_tokens_usd: 0.484
+- model: qwen-3.7-max
+  region: cn-beijing
+  input_per_1m_tokens_usd: 1.815
+- model: qwen-3.7-max
+  region: sg-singapore
+  input_per_1m_tokens_usd: 2.75
+machine_readable:
+  note: GET https://api.modelrush.ai/v1/models answers keyless with the live model
+    catalog and registry revision; the pricing page is generated from the same
+    registry.

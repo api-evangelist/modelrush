@@ -18,6 +18,7 @@ apis:
 - name: ModelRush API
   description: OpenAI-style hosted inference. GET /v1/models answers keyless with the live catalog (verified 2026-09-09);
     calls authenticate with Bearer mr_live_ keys.
+  image: https://modelrush.ai/icon.png
   humanURL: https://modelrush.ai/docs
   baseURL: https://api.modelrush.ai/v1
   tags:
@@ -28,6 +29,10 @@ apis:
     url: https://raw.githubusercontent.com/Moonveil-AI/modelrush-developer-tools/main/openapi/modelrush-public.openapi.yaml
   - type: Documentation
     url: https://modelrush.ai/docs
+  - type: APIReference
+    url: https://modelrush.ai/docs/api/chat-completions
+  - type: GettingStarted
+    url: https://modelrush.ai/docs/quickstart
   - type: LLMsTxt
     url: https://modelrush.ai/llms.txt
   - type: X-ModelInventory
@@ -36,11 +41,60 @@ apis:
     url: https://modelrush.ai/pricing
   - type: SourceCode
     url: https://github.com/Moonveil-AI/modelrush-developer-tools
+  - type: Postman
+    url: postman/ModelRush-Public-API.postman_collection.json
+  - type: MCPServer
+    url: mcp/modelrush-mcp.yml
+  - type: Overlay
+    url: overlays/modelrush-public-overlay.yaml
+  - type: Webhooks
+    url: asyncapi/modelrush-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/modelrush-problem-types.yml
+  - type: Conventions
+    url: conventions/modelrush-conventions.yml
+  - type: Conformance
+    url: conformance/modelrush-conformance.yml
+  - type: DataModel
+    url: data-model/modelrush-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/modelrush-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/modelrush-changelog.yml
+  - type: Plans
+    url: plans/modelrush-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/modelrush-rate-limits.yml
+  - type: AgentSkill
+    url: skills/_index.yml
 common:
+- type: DomainSecurity
+  url: security/modelrush-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/modelrush-vulnerability-disclosure.yml
+- type: Security
+  url: security/modelrush-vulnerability-disclosure.yml
+- type: Authentication
+  url: authentication/modelrush-authentication.yml
 - type: Website
   url: https://modelrush.ai
+- type: Blog
+  url: https://modelrush.ai/blog
+- type: GitHubOrganization
+  url: https://github.com/Moonveil-AI
+- type: Support
+  url: https://modelrush.ai/docs/faq
+- type: Login
+  url: https://modelrush.ai/dashboard
+- type: SignUp
+  url: https://modelrush.ai/sign-up
+- type: TermsOfService
+  url: https://modelrush.ai/terms
+- type: PrivacyPolicy
+  url: https://modelrush.ai/privacy
 maintainers:
 - FN: ModelRush Product Team
+  email: info@modelrush.ai
   url: https://modelrush.ai
 x-source:
   via: api-search/inbox#26, first-party; listed by Kin 2026-09-10
@@ -48,3 +102,8 @@ x-source:
   note: 'Boundary reviewed against the unauthorized-relay refusals: the catalog is dominated by open-weight families,
     which is Together-class first-party hosting; the grok-family entries raise a licensed-vs-relayed question that
     was put to the provider in the submission issue rather than assumed either way.'
+x-enrichment:
+  date: '2026-09-10'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v3

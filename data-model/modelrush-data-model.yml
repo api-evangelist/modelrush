@@ -1,0 +1,50 @@
+generated: '2026-09-10'
+method: derived
+source: openapi/modelrush-public.openapi.yaml
+entities:
+- name: Model
+  id_form: modelrush/{model-name}
+  key_fields: [id, modality, api_types, gateway_status, available_regions, registry_revision]
+- name: Region
+  key_fields: [id, label, configured, availableApiTypes]
+- name: Prediction
+  key_fields: [id, status, model, modelrush_region, poll_url, output, error]
+- name: Upload
+  key_fields: [id, status, content_type, size_bytes, upload_url, input_url, expires_at]
+- name: WebhookEndpoint
+  key_fields: [id, url, enabled, failure_count, created_at]
+- name: ErrorObject
+  key_fields: [code, message, type]
+relationships:
+- from: Prediction
+  to: Model
+  type: belongs_to
+  via: model
+- from: Prediction
+  to: Region
+  type: belongs_to
+  via: modelrush_region
+- from: Model
+  to: Region
+  type: has_many
+  via: available_regions
+- from: Prediction
+  to: ErrorObject
+  type: has_one
+  via: error
+- from: Upload
+  to: Prediction
+  type: feeds
+  via: input_url
+  note: Private uploads provide signed input media for generation requests that
+    produce Predictions.
+- from: WebhookEndpoint
+  to: Prediction
+  type: observes
+  via: terminal Prediction events
+  note: Signed webhook deliveries carry terminal Prediction states; delivery is
+    at-least-once, deduplicated by x-modelrush-event-id.
+notes:
+- The model registry itself is versioned; every ModelList response carries a
+  registry block with revision, model_count, and curation metadata, and responses
+  echo x-modelrush-registry-revision.

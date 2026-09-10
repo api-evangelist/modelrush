@@ -1,0 +1,26 @@
+generated: '2026-09-10'
+method: searched
+source: https://modelrush.ai/docs/changelog
+scheme: dated entries (no semver); model registry uses dated revisions like 2026-09-08.1
+current_version: '2026-09-08'
+policy: Breaking contract changes will be called out here before they take effect
+  whenever operationally possible.
+entries:
+- date: '2026-09-08'
+  breaking: false
+  highlights:
+  - Completed 14-model MuleRouter Spicy catalog
+  - Restored Wan 2.2 and added Wan 2.2 I2V LoRA Spicy
+  - Enabled Z-Image Pro Spicy
+  - Synchronized pricing
+  - Added API references to Wan 3 landing pages
+  - Corrected asynchronous image and video response guidance
+- date: '2026-08-11'
+  breaking: false
+  highlights:
+  - Launched the multi-page documentation application with global search, route
+    navigation, page outlines, and copyable Markdown
+  - Documented live chat, image, video, speech, transcription, model discovery,
+    and region discovery endpoints
+  - Added explicit Live, Beta, and Planned labels to distinguish roadmap from
+    production availability

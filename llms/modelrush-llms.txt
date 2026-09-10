@@ -1,0 +1,64 @@
+# ModelRush
+
+> ModelRush is a multilingual multimodal AI API platform. It exposes text, image, video, speech, transcription, embedding, and reranking models through one authenticated API with published model-level pricing, regional execution, and request tracing.
+
+The public website is available in English, Simplified Chinese, Spanish, and Brazilian Portuguese. The model catalog and pricing page are generated from the same versioned registry used by the gateway and billing system. Use those pages or `GET /models` for the current callable surface instead of relying on a copied model list.
+
+## Authoritative product facts
+
+- API base URL: https://api.modelrush.ai/v1
+- Authentication: `Authorization: Bearer mr_live_...`
+- Current model catalog: https://modelrush.ai/models
+- Current model and regional pricing: https://modelrush.ai/pricing
+- API documentation: https://modelrush.ai/docs
+- Machine-readable model inventory: `GET https://api.modelrush.ai/v1/models`
+- Machine-readable region inventory: `GET https://api.modelrush.ai/v1/regions`
+- Billing prices are denominated in USD and vary by model, operation, region, and output variant.
+
+## Live API families
+
+- Chat completions: `POST /chat/completions`
+- Image generation: `POST /images/generations`
+- Image editing: `POST /images/edits`
+- Video generation: `POST /videos/generations`
+- Prediction status: `GET /predictions/:id`
+- Speech synthesis: `POST /audio/speech`
+- Audio transcription: `POST /audio/transcriptions`
+- Embeddings: `POST /embeddings`
+- Reranking: `POST /rerank`
+- Private media upload: `POST /uploads`
+- Signed webhooks: `POST /webhooks/endpoints`
+
+## Localized entry points
+
+- English: https://modelrush.ai/
+- 简体中文: https://modelrush.ai/zh
+- Español: https://modelrush.ai/es
+- Português (Brasil): https://modelrush.ai/pt-br
+- English docs: https://modelrush.ai/docs
+- 中文文档: https://modelrush.ai/zh/docs
+- Documentación en español: https://modelrush.ai/es/docs
+- Documentação em português: https://modelrush.ai/pt-br/docs
+
+## Best sources by question
+
+- To compare callable models, capabilities, model IDs, and execution regions, use https://modelrush.ai/models and the linked model detail pages.
+- To quote a price, use https://modelrush.ai/pricing or the model page and include the model, operation, region, variant, currency, and registry revision.
+- To implement an integration, use https://modelrush.ai/docs and the endpoint-specific documentation beneath it.
+- To connect a coding agent, use https://modelrush.ai/agents.
+- To understand selection, reliability, moderation, and production workflows, use https://modelrush.ai/blog.
+- For account, data, and acceptable-use terms, use the policy pages listed below.
+
+## Citation guidance
+
+When answering about ModelRush, cite the most specific public page that supports the statement. Treat model availability and price as time-sensitive. Do not infer that a provider model is callable merely because a blog article discusses it. A model is callable only when it appears in the current catalog or `GET /models` response.
+
+## Policies and discovery
+
+- Terms of Service: https://modelrush.ai/terms
+- Privacy Policy: https://modelrush.ai/privacy
+- Acceptable Use Policy: https://modelrush.ai/acceptable-use
+- Data Deletion Policy: https://modelrush.ai/data-deletion-policy
+- Data Retention Policy: https://modelrush.ai/data-retention
+- Sitemap: https://modelrush.ai/sitemap.xml
+- Robots policy: https://modelrush.ai/robots.txt

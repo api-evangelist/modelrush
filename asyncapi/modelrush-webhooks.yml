@@ -1,0 +1,44 @@
+generated: '2026-09-10'
+method: searched
+source: https://modelrush.ai/docs/concepts/webhooks
+note: ModelRush publishes no AsyncAPI document; this captures the documented
+  signed-webhook surface verbatim from the webhooks concept page. Event names are
+  not individually enumerated in the docs -- deliveries are described as
+  "terminal Prediction events".
+webhooks:
+  delivery: at-least-once
+  events:
+    catalog_published: false
+    description: Terminal Prediction events (asynchronous media jobs reaching a
+      terminal state). The docs do not publish an enumerated event-type list.
+  signature:
+    header: x-modelrush-signature
+    format: t=TIMESTAMP,v1=HMAC
+    algorithm: HMAC-SHA256
+    verification: Verify against the raw request body using constant-time comparison.
+    secret_delivery: Signing secret is returned only once, in the endpoint creation
+      response (createWebhookEndpoint).
+  deduplication:
+    header: x-modelrush-event-id
+    note: Handlers must be idempotent because delivery is at least once.
+  retries:
+    timeout_seconds: 10
+    strategy: exponential backoff
+    max_attempts: 8
+    exhaustion: dead-letter
+  management:
+    - operation: listWebhookEndpoints
+      method: GET
+      path: /webhooks/endpoints
+    - operation: createWebhookEndpoint
+      method: POST
+      path: /webhooks/endpoints
+      note: Requires a public HTTPS URL; returns the one-time signing secret.
+    - method: GET
+      path: /webhooks/deliveries
+      note: Documented in the webhooks guide; not present in the published OpenAPI.
+    - method: POST
+      path: /webhooks/deliveries/:id/retry
+      note: Manual redelivery; documented in the webhooks guide, not in the OpenAPI.
+  fallback: Polling GET /predictions/:id remains available when webhook delivery
+    is delayed.

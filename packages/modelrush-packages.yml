@@ -1,0 +1,24 @@
+generated: '2026-09-10'
+method: searched
+source: registry.npmjs.org search, pypi.org/pypi/modelrush/json, github.com/Moonveil-AI
+note: ModelRush ships no first-party client SDK on any package registry as of
+  2026-09-10. npm search for "modelrush" returned no packages; PyPI
+  /pypi/modelrush/json returned 404. The provider's official posture is
+  OpenAI-compatibility -- the Moonveil-AI/modelrush-developer-tools repo carries
+  curl, Python, TypeScript, and Vercel AI SDK examples that call
+  api.modelrush.ai/v1 through generic OpenAI-compatible clients, plus the OpenAPI,
+  Postman collection, and a compatibility test harness. The docs also state the
+  ModelRush CLI is "Planned" with no package published today
+  (https://modelrush.ai/docs/integrations/cli). No SDKs pointer is wired because
+  no first-party package exists.
+package_count: 0
+packages: []
+related:
+- name: modelrush-developer-tools
+  url: https://github.com/Moonveil-AI/modelrush-developer-tools
+  official: true
+  registry: none
+  version: null
+  published: null
+  note: Developer tooling repo (OpenAPI, Postman, examples, compatibility checks),
+    not an installable client library; no registry release exists to date.

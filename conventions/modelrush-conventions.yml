@@ -1,0 +1,80 @@
+generated: '2026-09-10'
+method: searched
+source: https://modelrush.ai/docs (api-keys, concepts/errors, concepts/webhooks,
+  operations/observability) + openapi/modelrush-public.openapi.yaml + live probe of
+  api.modelrush.ai/v1/models
+authentication:
+  style: bearer-api-key
+  header: 'Authorization: Bearer $MODELRUSH_API_KEY'
+  notes: Keys are server-side only; keys in query strings are not accepted. See
+    authentication/modelrush-authentication.yml.
+idempotency:
+  coverage: none
+  note: No Idempotency-Key or equivalent client replay-protection header is
+    documented on any write operation. The only idempotency guidance published is
+    consumer-side -- webhook handlers must be idempotent because delivery is
+    at-least-once, deduplicated via the x-modelrush-event-id header. Retrying a
+    billable POST (chat, image, video, speech) can therefore double-bill; the docs
+    mitigate with "a small maximum attempt count" rather than replay keys.
+pagination:
+  style: none
+  note: 'List responses (GET /models, GET /webhooks/endpoints) return complete
+    list envelopes (object: list, data: [...]) with no cursor or page parameters.'
+request_tracing:
+  headers:
+  - x-request-id
+  - x-modelrush-registry-revision
+  note: Observed on a live GET /v1/models response 2026-09-10. Docs instruct
+    capturing the ModelRush request/generation ID and correlating with application
+    traces via the Requests dashboard.
+versioning:
+  path_prefix: /v1
+  registry: dated registry revisions (x-modelrush-registry-revision, e.g. 2026-09-08.1)
+  changelog: https://modelrush.ai/docs/changelog
+error_envelope:
+  shape: '{error: {code, message, type}}'
+  format: custom (not RFC 9457)
+  catalog: errors/modelrush-problem-types.yml
+rate_limit_signaling:
+  status: 429
+  headers:
+  - Retry-After
+  note: No X-RateLimit-* quota headers documented; see rate-limits/modelrush-rate-limits.yml.
+streaming:
+  style: SSE
+  note: POST /chat/completions returns text/event-stream when stream:true, with
+    OpenAI-compatible stream_options.
+async_jobs:
+  pattern: submit -> poll /predictions/:id (or /videos/generations/:id) -> or
+    receive signed webhook on terminal state; poll_url is returned on the job
+    object. Fallback polling remains available when webhooks are delayed.
+regions:
+  note: Requests may pin an execution region via the region request field; model
+    and region availability is time-sensitive -- call GET /models and GET /regions
+    before selecting.
+reversibility:
+  summary: partial
+  surfaces:
+  - surface: asynchronous media generation (Predictions)
+    reversal: cancelPrediction
+    grade: documented
+    note: DELETE /predictions/{id} requests cancellation and returns the terminal
+      Prediction state; a 409 is returned when the job is already terminal, so the
+      window is "before the Prediction reaches a terminal state". The docs do not
+      state a time-bound window, so this grades documented rather than verified.
+  - surface: media uploads
+    reversal: deleteUpload
+    grade: documented
+    note: DELETE /uploads/{id} removes a private upload; uploads also carry an
+      expires_at and age out on their own. No restore window is stated.
+  - surface: synchronous billable generations (createChatCompletion,
+      createImageGeneration, createImageEdit, createSpeech, createTranscription)
+    reversal: none
+    grade: none
+    note: Completed generations are billed and cannot be reversed; no refund or
+      void operation is published.
+  - surface: webhook endpoints
+    reversal: none-documented
+    grade: none
+    note: The OpenAPI publishes list/create only; no delete/disable endpoint
+      operation is in the public contract (an enabled flag exists on the object).

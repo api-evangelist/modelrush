@@ -1,0 +1,459 @@
+{
+  "info": {
+    "_postman_id": "f632dc73-b5f0-47cc-a6c2-f3b44a505a85",
+    "name": "ModelRush Public API",
+    "description": "Explore ModelRush public discovery endpoints and authenticated OpenAI-compatible APIs for chat, images, video, audio, uploads, predictions, and signed webhooks. Start with Discovery, which needs no API key. All authenticated generation requests are blocked until allow_billable_requests is explicitly set to true in a private environment. Documentation: [https://modelrush.ai/docs](https://modelrush.ai/docs?utm_source=postman&utm_medium=referral&utm_campaign=developer_profiles)\n\nNever store a real API key in this collection or in a public workspace shared value.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{api_key}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const requiresApproval = pm.request.headers.get('x-modelrush-example-billable') === 'true';",
+          "if (requiresApproval && pm.environment.get('allow_billable_requests') !== 'true') {",
+          "  pm.execution.skipRequest();",
+          "  throw new Error('Billable example blocked. Set allow_billable_requests=true only in a private environment after reviewing current pricing.');",
+          "}"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://api.modelrush.ai/v1",
+      "type": "string"
+    },
+    {
+      "key": "api_key",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Discovery",
+      "description": "Public, non-billable inventory endpoints. Run these first to select current model IDs and regions.",
+      "item": [
+        {
+          "name": "List models",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/models",
+            "description": "Returns the current callable model inventory, operations, limits, examples, availability, and registry revision. https://modelrush.ai/docs/api/models"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('Returns a model list', () => { pm.expect(body.object).to.eql('list'); pm.expect(body.data).to.be.an('array').that.is.not.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List regions",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/regions",
+            "description": "Returns live API surfaces, resource surfaces, default routing, and configured regions. https://modelrush.ai/docs/api/regions"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('Returns configured regions', () => pm.expect(body.regions).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Text",
+      "item": [
+        {
+          "name": "Create chat completion",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-modelrush-example-billable",
+                "value": "true",
+                "description": "Local guard marker used by the collection pre-request script. Keep the marker enabled when running the request."
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"{{chat_model}}\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Return exactly: ModelRush connected\"\n    }\n  ],\n  \"stream\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/chat/completions",
+            "description": "Creates a synchronous OpenAI-compatible chat completion. This may create usage; review https://modelrush.ai/pricing before enabling the billable guard. Preserve the response id and request identifiers."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "item": [
+        {
+          "name": "Generate image",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-modelrush-example-billable",
+                "value": "true",
+                "description": "Safety marker for the collection pre-request guard."
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"{{image_model}}\",\n  \"prompt\": \"A clean technical illustration of several AI models connecting to one API gateway\",\n  \"n\": 1,\n  \"size\": \"1024x1024\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/images/generations",
+            "description": "Generates one image. The response may be synchronous or a 202 Prediction depending on the selected model. https://modelrush.ai/docs/api/image-generations"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 202) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.id) pm.environment.set('prediction_id', body.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Edit image from URL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-modelrush-example-billable",
+                "value": "true",
+                "description": "Safety marker for the collection pre-request guard."
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"{{image_model}}\",\n  \"image\": \"https://modelrush.ai/modelrush-watercolor-models-v1.jpg\",\n  \"prompt\": \"Preserve the composition and render the scene as a precise technical ink illustration\",\n  \"n\": 1,\n  \"size\": \"1024x1024\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/images/edits",
+            "description": "Edits a public HTTPS image reference. Face and head swap models require explicit portrait authorization and are intentionally excluded from this public example. https://modelrush.ai/docs/api/image-edits"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 202) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.id) pm.environment.set('prediction_id', body.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Video",
+      "item": [
+        {
+          "name": "Create video job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-modelrush-example-billable",
+                "value": "true",
+                "description": "Safety marker for the collection pre-request guard."
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"{{video_model}}\",\n  \"prompt\": \"A single slow dolly shot through a quiet futuristic server room\",\n  \"duration\": 5,\n  \"resolution\": \"720P\",\n  \"ratio\": \"16:9\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/videos/generations",
+            "description": "Creates an asynchronous video generation. https://modelrush.ai/docs/api/video-generations"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 202) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.id) { pm.environment.set('video_id', body.id); pm.environment.set('prediction_id', body.id); }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get video status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/videos/generations/{{video_id}}",
+            "description": "Reads the current state of a video job. https://modelrush.ai/docs/api/video-status"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Audio",
+      "item": [
+        {
+          "name": "Create speech",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-modelrush-example-billable",
+                "value": "true",
+                "description": "Safety marker for the collection pre-request guard."
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"{{speech_model}}\",\n  \"input\": \"Welcome to ModelRush.\",\n  \"voice\": \"{{voice_id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/audio/speech",
+            "description": "Synthesizes WAV speech. The selected model requires a compatible voice ID. https://modelrush.ai/docs/api/speech"
+          }
+        },
+        {
+          "name": "Transcribe referenced audio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-modelrush-example-billable",
+                "value": "true",
+                "description": "Safety marker for the collection pre-request guard."
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"modelrush/fun-asr\",\n  \"audio\": \"{{uploaded_input_url}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/audio/transcriptions",
+            "description": "Transcribes a private upload reference or other allowed audio URL. The example requires uploaded_input_url from a completed upload. https://modelrush.ai/docs/api/transcriptions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Uploads",
+      "description": "Private media upload workflow. Create an upload, PUT bytes to the returned signed upload_url outside this public collection, then inspect the upload until it is ready.",
+      "item": [
+        {
+          "name": "Create upload",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content_type\": \"image/png\",\n  \"size_bytes\": 12345\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/uploads",
+            "description": "Creates a private upload slot for 1 byte through 100 MB of supported media. Replace size_bytes with the exact file size before running."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.id) pm.environment.set('upload_id', body.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Inspect upload",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/uploads/{{upload_id}}",
+            "description": "Verifies the uploaded object's type, size, and signature. When ready, copy input_url into uploaded_input_url for an allowed media request."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.input_url) pm.environment.set('uploaded_input_url', body.input_url);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Predictions",
+      "item": [
+        {
+          "name": "Get prediction",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/predictions/{{prediction_id}}",
+            "description": "Reads a unified asynchronous media Prediction. Preserve terminal outputs before the documented retention window expires. https://modelrush.ai/docs/api/prediction"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List webhook endpoints",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/webhooks/endpoints",
+            "description": "Lists the authenticated account's webhook endpoints. https://modelrush.ai/docs/api/webhooks"
+          }
+        },
+        {
+          "name": "Create webhook endpoint",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"{{webhook_url}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/webhooks/endpoints",
+            "description": "Creates a signed webhook endpoint for a public HTTPS URL. The signing_secret appears only in the creation response; store it in a secret manager and never publish an example containing the real value."
+          }
+        }
+      ]
+    }
+  ]
+}

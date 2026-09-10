@@ -1,0 +1,60 @@
+generated: '2026-09-10'
+method: searched
+source: https://modelrush.ai/docs/concepts/errors + openapi/modelrush-public.openapi.yaml
+format: custom-envelope
+note: Errors are NOT RFC 9457 problem+json. The API returns application/json with
+  a top-level error object; the envelope shape is defined in the OpenAPI as
+  ErrorResponse -> ErrorObject.
+envelope:
+  content_type: application/json
+  shape:
+    error:
+      code: string
+      message: string
+      type: string
+statuses:
+- status: 400
+  meaning: Invalid input
+  retry: false
+  remediation: Correct the request; do not retry as-is.
+- status: 401
+  meaning: Missing, invalid, or revoked API key
+  retry: false
+  remediation: Update credentials; keys are accepted only as an Authorization Bearer header.
+- status: 402
+  meaning: Billing or credit boundary
+  retry: false
+  remediation: Resolve the account (top up credits) before retrying.
+- status: 404
+  meaning: Resource not found (e.g. unknown Prediction or Upload id)
+  retry: false
+- status: 409
+  meaning: Conflict (e.g. cancelling a Prediction already in a terminal state)
+  retry: false
+- status: 413
+  meaning: Request too large for the gateway
+  retry: false
+  remediation: Reduce payload size before submitting.
+- status: 429
+  meaning: Rate limited
+  retry: true
+  remediation: Follow the Retry-After header; changing keys to bypass limits is not supported.
+- status: 5xx
+  meaning: Server or upstream provider issue
+  retry: true
+  remediation: Retry with exponential backoff, jitter, a small maximum attempt count,
+    and an overall deadline.
+codes:
+- code: request_too_large
+  title: Request exceeds gateway limits
+  remediation: Reduce the request payload; the gateway validates dimensions before
+    submission rather than silently truncating chat history.
+- code: context_length_exceeded
+  title: Model context window overflow
+  remediation: Shorten the prompt or chat history, or select a model with a larger
+    context window (see GET /models).
+guidance:
+  retries: Retry only transient failures (429/5xx) with bounded exponential backoff
+    and jitter; set a request timeout and an overall deadline.
+  logging: Preserve request IDs and error bodies, but redact credentials and
+    sensitive input.

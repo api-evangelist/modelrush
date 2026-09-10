@@ -1,0 +1,47 @@
+# generated: 2026-09-10
+# method: generated
+# source: API Evangelist enrichment -- runtime findings from live probes and the
+#   ModelRush docs, layered over openapi/modelrush-public.openapi.yaml without
+#   mutating the original.
+overlay: 1.0.0
+info:
+  title: ModelRush Public API - API Evangelist enrichment overlay
+  version: 1.0.0
+extends: modelrush-public.openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist:
+      enriched: '2026-09-10'
+      request_id_header: x-request-id
+      registry_revision_header: x-modelrush-registry-revision
+      rate_limit_signaling: 429 with Retry-After; no numeric limits published
+      idempotency: none documented on write operations
+- target: $.paths['/models'].get
+  update:
+    x-apievangelist-verified:
+      probed: '2026-09-10'
+      status: 200
+      note: Answers keyless with the live 84-model catalog and registry revision
+        (2026-09-08.1 at probe time).
+- target: $.paths['/regions'].get
+  update:
+    x-apievangelist-verified:
+      probed: '2026-09-10'
+      status: 200
+      note: Answers keyless with live api_surfaces (all status live) and regions
+        including cn-beijing, cn-hong-kong, eu-frankfurt, jp-tokyo, sg-singapore,
+        us-virginia, us-oregon.
+- target: $.paths['/webhooks/endpoints'].post
+  update:
+    x-apievangelist-webhook-signature:
+      header: x-modelrush-signature
+      format: t=TIMESTAMP,v1=HMAC
+      algorithm: HMAC-SHA256
+      dedupe_header: x-modelrush-event-id
+      docs: https://modelrush.ai/docs/concepts/webhooks
+- target: $.components.schemas.ErrorObject
+  update:
+    x-apievangelist-known-codes:
+    - request_too_large
+    - context_length_exceeded

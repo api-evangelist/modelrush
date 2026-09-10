@@ -1,0 +1,60 @@
+generated: '2026-09-10'
+method: derived
+source: openapi/modelrush-public.openapi.yaml + https://modelrush.ai/docs/integrations/mcp
+status: candidate
+note: ModelRush ships NO MCP server today. The provider's own docs page
+  (https://modelrush.ai/docs/integrations/mcp, last updated 2026-08-11) marks the
+  MCP integration "Planned" and states verbatim that "There is no public,
+  supported ModelRush MCP package or connection endpoint today." The tool list
+  below is a candidate derived from the public OpenAPI operations so an agent can
+  see what a future server would plausibly expose; nothing here is callable over
+  MCP. Probed /.well-known/oauth-authorization-server and
+  /.well-known/oauth-protected-resource on modelrush.ai and api.modelrush.ai --
+  all 404 (see well-known/modelrush-well-known.yml).
+deployment:
+  mode: none
+  endpoint: ''
+  install: ''
+  package: ''
+  auth: unknown
+  verified: searched
+tools:
+- name: list_models
+  description: List callable models with capabilities, limits, and regions (keyless).
+  operationId: listModels
+- name: list_regions
+  description: List live API surfaces and configured execution regions (keyless).
+  operationId: listRegions
+- name: create_chat_completion
+  description: Create an OpenAI-compatible chat completion (billable).
+  operationId: createChatCompletion
+- name: generate_image
+  description: Generate images from a prompt (billable).
+  operationId: createImageGeneration
+- name: edit_image
+  description: Edit an image with a prompt (billable).
+  operationId: createImageEdit
+- name: generate_video
+  description: Start an asynchronous video generation job (billable).
+  operationId: createVideoGeneration
+- name: get_video_generation
+  description: Poll a video generation job by id.
+  operationId: getVideoGeneration
+- name: synthesize_speech
+  description: Synthesize speech audio from text (billable).
+  operationId: createSpeech
+- name: transcribe_audio
+  description: Transcribe audio to text (billable).
+  operationId: createTranscription
+- name: get_prediction
+  description: Get the current state of a unified media Prediction.
+  operationId: getPrediction
+- name: cancel_prediction
+  description: Request cancellation of an in-flight Prediction.
+  operationId: cancelPrediction
+- name: create_upload
+  description: Create a private media upload slot for generation inputs.
+  operationId: createUpload
+- name: manage_webhook_endpoints
+  description: List and create signed webhook endpoints for terminal Prediction events.
+  operationId: listWebhookEndpoints
