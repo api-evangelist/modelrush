@@ -1,0 +1,50 @@
+name: ModelRush
+description: A multilingual multimodal AI API platform (text, image, video, speech) serving a hosted model catalog
+  -- open-weight families (DeepSeek, GLM, CosyVoice, Fun-ASR) alongside grok-family entries -- behind one bearer
+  key with a public keyless model inventory and per-model regional pricing.
+url: https://raw.githubusercontent.com/api-evangelist/modelrush/refs/heads/main/apis.yml
+created: '2026-09-10'
+modified: '2026-09-10'
+specificationVersion: '0.21'
+tags:
+- AI
+- LLM
+- Inference
+- Multimodal
+- Model Hosting
+- Speech
+- Image Generation
+apis:
+- name: ModelRush API
+  description: OpenAI-style hosted inference. GET /v1/models answers keyless with the live catalog (verified 2026-09-09);
+    calls authenticate with Bearer mr_live_ keys.
+  humanURL: https://modelrush.ai/docs
+  baseURL: https://api.modelrush.ai/v1
+  tags:
+  - AI
+  - Inference
+  properties:
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/Moonveil-AI/modelrush-developer-tools/main/openapi/modelrush-public.openapi.yaml
+  - type: Documentation
+    url: https://modelrush.ai/docs
+  - type: LLMsTxt
+    url: https://modelrush.ai/llms.txt
+  - type: X-ModelInventory
+    url: https://api.modelrush.ai/v1/models
+  - type: Pricing
+    url: https://modelrush.ai/pricing
+  - type: SourceCode
+    url: https://github.com/Moonveil-AI/modelrush-developer-tools
+common:
+- type: Website
+  url: https://modelrush.ai
+maintainers:
+- FN: ModelRush Product Team
+  url: https://modelrush.ai
+x-source:
+  via: api-search/inbox#26, first-party; listed by Kin 2026-09-10
+  fetched: '2026-09-10'
+  note: 'Boundary reviewed against the unauthorized-relay refusals: the catalog is dominated by open-weight families,
+    which is Together-class first-party hosting; the grok-family entries raise a licensed-vs-relayed question that
+    was put to the provider in the submission issue rather than assumed either way.'
