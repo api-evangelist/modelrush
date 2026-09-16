@@ -7,6 +7,14 @@ created: '2026-09-10'
 modified: '2026-09-10'
 specificationVersion: '0.21'
 tags:
+- Artificial Intelligence
+- LLM
+- Inference
+- Multi-Modal
+- Model Hosting
+- Speech
+- Image-Generation
+tags_raw:
 - AI
 - LLM
 - Inference
@@ -15,18 +23,16 @@ tags:
 - Speech
 - Image Generation
 apis:
-- name: ModelRush API
-  description: OpenAI-style hosted inference. GET /v1/models answers keyless with the live catalog (verified 2026-09-09);
-    calls authenticate with Bearer mr_live_ keys.
-  image: https://modelrush.ai/icon.png
+- aid: modelrush:modelrush-audio-api
+  name: ModelRush Audio API
+  description: The Audio API from ModelRush — 2 operation(s) for audio.
   humanURL: https://modelrush.ai/docs
   baseURL: https://api.modelrush.ai/v1
   tags:
-  - AI
-  - Inference
+  - Audio
   properties:
   - type: OpenAPI
-    url: https://raw.githubusercontent.com/Moonveil-AI/modelrush-developer-tools/main/openapi/modelrush-public.openapi.yaml
+    url: openapi/modelrush-audio-api-openapi.yml
   - type: Documentation
     url: https://modelrush.ai/docs
   - type: APIReference
@@ -43,10 +49,6 @@ apis:
     url: https://github.com/Moonveil-AI/modelrush-developer-tools
   - type: Postman
     url: postman/ModelRush-Public-API.postman_collection.json
-  - type: MCPServer
-    url: mcp/modelrush-mcp.yml
-  - type: Overlay
-    url: overlays/modelrush-public-overlay.yaml
   - type: Webhooks
     url: asyncapi/modelrush-webhooks.yml
   - type: ErrorCatalog
@@ -65,9 +67,321 @@ apis:
     url: plans/modelrush-plans-pricing.yml
   - type: RateLimits
     url: rate-limits/modelrush-rate-limits.yml
-  - type: AgentSkill
-    url: skills/_index.yml
+- aid: modelrush:modelrush-chat-api
+  name: ModelRush Chat API
+  description: The Chat API from ModelRush — 1 operation(s) for chat.
+  humanURL: https://modelrush.ai/docs
+  baseURL: https://api.modelrush.ai/v1
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/modelrush-chat-api-openapi.yml
+  - type: Documentation
+    url: https://modelrush.ai/docs
+  - type: APIReference
+    url: https://modelrush.ai/docs/api/chat-completions
+  - type: GettingStarted
+    url: https://modelrush.ai/docs/quickstart
+  - type: LLMsTxt
+    url: https://modelrush.ai/llms.txt
+  - type: X-ModelInventory
+    url: https://api.modelrush.ai/v1/models
+  - type: Pricing
+    url: https://modelrush.ai/pricing
+  - type: SourceCode
+    url: https://github.com/Moonveil-AI/modelrush-developer-tools
+  - type: Postman
+    url: postman/ModelRush-Public-API.postman_collection.json
+  - type: Webhooks
+    url: asyncapi/modelrush-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/modelrush-problem-types.yml
+  - type: Conventions
+    url: conventions/modelrush-conventions.yml
+  - type: Conformance
+    url: conformance/modelrush-conformance.yml
+  - type: DataModel
+    url: data-model/modelrush-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/modelrush-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/modelrush-changelog.yml
+  - type: Plans
+    url: plans/modelrush-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/modelrush-rate-limits.yml
+- aid: modelrush:modelrush-discovery-api
+  name: ModelRush Discovery API
+  description: The Discovery API from ModelRush — 2 operation(s) for discovery.
+  humanURL: https://modelrush.ai/docs
+  baseURL: https://api.modelrush.ai/v1
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/modelrush-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://modelrush.ai/docs
+  - type: APIReference
+    url: https://modelrush.ai/docs/api/chat-completions
+  - type: GettingStarted
+    url: https://modelrush.ai/docs/quickstart
+  - type: LLMsTxt
+    url: https://modelrush.ai/llms.txt
+  - type: X-ModelInventory
+    url: https://api.modelrush.ai/v1/models
+  - type: Pricing
+    url: https://modelrush.ai/pricing
+  - type: SourceCode
+    url: https://github.com/Moonveil-AI/modelrush-developer-tools
+  - type: Postman
+    url: postman/ModelRush-Public-API.postman_collection.json
+  - type: Webhooks
+    url: asyncapi/modelrush-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/modelrush-problem-types.yml
+  - type: Conventions
+    url: conventions/modelrush-conventions.yml
+  - type: Conformance
+    url: conformance/modelrush-conformance.yml
+  - type: DataModel
+    url: data-model/modelrush-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/modelrush-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/modelrush-changelog.yml
+  - type: Plans
+    url: plans/modelrush-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/modelrush-rate-limits.yml
+- aid: modelrush:modelrush-images-api
+  name: ModelRush Images API
+  description: The Images API from ModelRush — 2 operation(s) for images.
+  humanURL: https://modelrush.ai/docs
+  baseURL: https://api.modelrush.ai/v1
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/modelrush-images-api-openapi.yml
+  - type: Documentation
+    url: https://modelrush.ai/docs
+  - type: APIReference
+    url: https://modelrush.ai/docs/api/chat-completions
+  - type: GettingStarted
+    url: https://modelrush.ai/docs/quickstart
+  - type: LLMsTxt
+    url: https://modelrush.ai/llms.txt
+  - type: X-ModelInventory
+    url: https://api.modelrush.ai/v1/models
+  - type: Pricing
+    url: https://modelrush.ai/pricing
+  - type: SourceCode
+    url: https://github.com/Moonveil-AI/modelrush-developer-tools
+  - type: Postman
+    url: postman/ModelRush-Public-API.postman_collection.json
+  - type: Webhooks
+    url: asyncapi/modelrush-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/modelrush-problem-types.yml
+  - type: Conventions
+    url: conventions/modelrush-conventions.yml
+  - type: Conformance
+    url: conformance/modelrush-conformance.yml
+  - type: DataModel
+    url: data-model/modelrush-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/modelrush-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/modelrush-changelog.yml
+  - type: Plans
+    url: plans/modelrush-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/modelrush-rate-limits.yml
+- aid: modelrush:modelrush-predictions-api
+  name: ModelRush Predictions API
+  description: The Predictions API from ModelRush — 1 operation(s) for predictions.
+  humanURL: https://modelrush.ai/docs
+  baseURL: https://api.modelrush.ai/v1
+  tags:
+  - Predictions
+  properties:
+  - type: OpenAPI
+    url: openapi/modelrush-predictions-api-openapi.yml
+  - type: Documentation
+    url: https://modelrush.ai/docs
+  - type: APIReference
+    url: https://modelrush.ai/docs/api/chat-completions
+  - type: GettingStarted
+    url: https://modelrush.ai/docs/quickstart
+  - type: LLMsTxt
+    url: https://modelrush.ai/llms.txt
+  - type: X-ModelInventory
+    url: https://api.modelrush.ai/v1/models
+  - type: Pricing
+    url: https://modelrush.ai/pricing
+  - type: SourceCode
+    url: https://github.com/Moonveil-AI/modelrush-developer-tools
+  - type: Postman
+    url: postman/ModelRush-Public-API.postman_collection.json
+  - type: Webhooks
+    url: asyncapi/modelrush-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/modelrush-problem-types.yml
+  - type: Conventions
+    url: conventions/modelrush-conventions.yml
+  - type: Conformance
+    url: conformance/modelrush-conformance.yml
+  - type: DataModel
+    url: data-model/modelrush-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/modelrush-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/modelrush-changelog.yml
+  - type: Plans
+    url: plans/modelrush-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/modelrush-rate-limits.yml
+- aid: modelrush:modelrush-uploads-api
+  name: ModelRush Uploads API
+  description: The Uploads API from ModelRush — 2 operation(s) for uploads.
+  humanURL: https://modelrush.ai/docs
+  baseURL: https://api.modelrush.ai/v1
+  tags:
+  - Uploads
+  properties:
+  - type: OpenAPI
+    url: openapi/modelrush-uploads-api-openapi.yml
+  - type: Documentation
+    url: https://modelrush.ai/docs
+  - type: APIReference
+    url: https://modelrush.ai/docs/api/chat-completions
+  - type: GettingStarted
+    url: https://modelrush.ai/docs/quickstart
+  - type: LLMsTxt
+    url: https://modelrush.ai/llms.txt
+  - type: X-ModelInventory
+    url: https://api.modelrush.ai/v1/models
+  - type: Pricing
+    url: https://modelrush.ai/pricing
+  - type: SourceCode
+    url: https://github.com/Moonveil-AI/modelrush-developer-tools
+  - type: Postman
+    url: postman/ModelRush-Public-API.postman_collection.json
+  - type: Webhooks
+    url: asyncapi/modelrush-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/modelrush-problem-types.yml
+  - type: Conventions
+    url: conventions/modelrush-conventions.yml
+  - type: Conformance
+    url: conformance/modelrush-conformance.yml
+  - type: DataModel
+    url: data-model/modelrush-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/modelrush-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/modelrush-changelog.yml
+  - type: Plans
+    url: plans/modelrush-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/modelrush-rate-limits.yml
+- aid: modelrush:modelrush-video-api
+  name: ModelRush Video API
+  description: The Video API from ModelRush — 2 operation(s) for video.
+  humanURL: https://modelrush.ai/docs
+  baseURL: https://api.modelrush.ai/v1
+  tags:
+  - Video
+  properties:
+  - type: OpenAPI
+    url: openapi/modelrush-video-api-openapi.yml
+  - type: Documentation
+    url: https://modelrush.ai/docs
+  - type: APIReference
+    url: https://modelrush.ai/docs/api/chat-completions
+  - type: GettingStarted
+    url: https://modelrush.ai/docs/quickstart
+  - type: LLMsTxt
+    url: https://modelrush.ai/llms.txt
+  - type: X-ModelInventory
+    url: https://api.modelrush.ai/v1/models
+  - type: Pricing
+    url: https://modelrush.ai/pricing
+  - type: SourceCode
+    url: https://github.com/Moonveil-AI/modelrush-developer-tools
+  - type: Postman
+    url: postman/ModelRush-Public-API.postman_collection.json
+  - type: Webhooks
+    url: asyncapi/modelrush-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/modelrush-problem-types.yml
+  - type: Conventions
+    url: conventions/modelrush-conventions.yml
+  - type: Conformance
+    url: conformance/modelrush-conformance.yml
+  - type: DataModel
+    url: data-model/modelrush-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/modelrush-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/modelrush-changelog.yml
+  - type: Plans
+    url: plans/modelrush-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/modelrush-rate-limits.yml
+- aid: modelrush:modelrush-webhooks-api
+  name: ModelRush Webhooks API
+  description: The Webhooks API from ModelRush — 1 operation(s) for webhooks.
+  humanURL: https://modelrush.ai/docs
+  baseURL: https://api.modelrush.ai/v1
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/modelrush-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://modelrush.ai/docs
+  - type: APIReference
+    url: https://modelrush.ai/docs/api/chat-completions
+  - type: GettingStarted
+    url: https://modelrush.ai/docs/quickstart
+  - type: LLMsTxt
+    url: https://modelrush.ai/llms.txt
+  - type: X-ModelInventory
+    url: https://api.modelrush.ai/v1/models
+  - type: Pricing
+    url: https://modelrush.ai/pricing
+  - type: SourceCode
+    url: https://github.com/Moonveil-AI/modelrush-developer-tools
+  - type: Postman
+    url: postman/ModelRush-Public-API.postman_collection.json
+  - type: Webhooks
+    url: asyncapi/modelrush-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/modelrush-problem-types.yml
+  - type: Conventions
+    url: conventions/modelrush-conventions.yml
+  - type: Conformance
+    url: conformance/modelrush-conformance.yml
+  - type: DataModel
+    url: data-model/modelrush-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/modelrush-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/modelrush-changelog.yml
+  - type: Plans
+    url: plans/modelrush-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/modelrush-rate-limits.yml
 common:
+- type: MCPServer
+  url: mcp/modelrush-mcp.yml
+- type: Overlay
+  url: overlays/modelrush-public-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: DomainSecurity
   url: security/modelrush-domain-security.yml
 - type: VulnerabilityDisclosure
