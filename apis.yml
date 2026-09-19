@@ -161,6 +161,8 @@ apis:
   humanURL: https://modelrush.ai/docs
   baseURL: https://api.modelrush.ai/v1
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -337,6 +339,8 @@ apis:
   humanURL: https://modelrush.ai/docs
   baseURL: https://api.modelrush.ai/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
