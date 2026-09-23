@@ -1,0 +1,223 @@
+openapi: 3.2.0
+info:
+  title: ModelRush Public Audio API
+  version: 2026-09-04.3
+  summary: One API for text, image, video, and voice models
+  description: Public discovery and representative authenticated ModelRush API contracts. Model and region availability are time-sensitive; call the discovery endpoints before selecting a model or execution region. Authenticated generation operations may create billable usage. Keep API keys server-side. The Apache-2.0 license covers this API description, not access to the hosted service or its underlying implementation. Service use remains governed by the linked terms of service.
+  termsOfService: https://modelrush.ai/terms
+  contact:
+    name: ModelRush
+    url: https://modelrush.ai
+    email: info@modelrush.ai
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+servers:
+- url: https://api.modelrush.ai/v1
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Audio
+paths:
+  /audio/speech:
+    post:
+      operationId: createSpeech
+      summary: Synthesize WAV speech
+      tags:
+      - Audio
+      x-modelrush-billable: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpeechRequest'
+      responses:
+        '200':
+          description: WAV audio
+          content:
+            audio/wav:
+              schema:
+                type: string
+                contentMediaType: audio/wav
+                contentEncoding: binary
+        4XX:
+          $ref: '#/components/responses/Error'
+  /audio/transcriptions:
+    post:
+      operationId: createTranscription
+      summary: Transcribe audio
+      description: Accepts a JSON HTTPS/data-URI audio reference or a multipart audio file.
+      tags:
+      - Audio
+      x-modelrush-billable: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscriptionRequest'
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - model
+              - file
+              properties:
+                model:
+                  type: string
+                file:
+                  type: string
+                  format: binary
+                language:
+                  type: string
+                enable_itn:
+                  type: boolean
+                region:
+                  type: string
+      responses:
+        '200':
+          description: Synchronous transcription
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - text
+                - model
+                properties:
+                  id:
+                    type: string
+                  text:
+                    type: string
+                  model:
+                    type: string
+                  duration:
+                    type: number
+                  modelrush_region:
+                    type: string
+        '202':
+          description: Asynchronous transcription Prediction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prediction'
+        4XX:
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    Prediction:
+      type: object
+      required:
+      - id
+      - status
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        status:
+          type: string
+          enum:
+          - queued
+          - processing
+          - succeeded
+          - failed
+          - cancelled
+          - expired
+        provider_status:
+          type: string
+        model:
+          type: string
+        modelrush_region:
+          type: string
+        poll_url:
+          type: string
+        output: {}
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      additionalProperties: true
+    TranscriptionRequest:
+      type: object
+      required:
+      - model
+      properties:
+        model:
+          type: string
+        audio:
+          type: string
+        file:
+          type: string
+        language:
+          type: string
+        enable_itn:
+          type: boolean
+          default: true
+        parameters:
+          type: object
+          additionalProperties: true
+        region:
+          type: string
+      anyOf:
+      - required:
+        - audio
+      - required:
+        - file
+      additionalProperties: true
+    SpeechRequest:
+      type: object
+      required:
+      - model
+      - input
+      - voice
+      properties:
+        model:
+          type: string
+        input:
+          type: string
+        voice:
+          type: string
+        language_type:
+          type: string
+        region:
+          type: string
+      additionalProperties: true
+    ErrorObject:
+      type: object
+      required:
+      - code
+      - message
+      - type
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+      additionalProperties: true
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      additionalProperties: true
+  responses:
+    Error:
+      description: Structured API error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: ModelRush API key
+externalDocs:
+  description: ModelRush documentation
+  url: https://modelrush.ai/docs

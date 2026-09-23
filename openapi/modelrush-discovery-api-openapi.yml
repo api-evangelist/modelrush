@@ -1,0 +1,156 @@
+openapi: 3.2.0
+info:
+  title: ModelRush Public Discovery API
+  version: 2026-09-04.3
+  summary: One API for text, image, video, and voice models
+  description: Public discovery and representative authenticated ModelRush API contracts. Model and region availability are time-sensitive; call the discovery endpoints before selecting a model or execution region. Authenticated generation operations may create billable usage. Keep API keys server-side. The Apache-2.0 license covers this API description, not access to the hosted service or its underlying implementation. Service use remains governed by the linked terms of service.
+  termsOfService: https://modelrush.ai/terms
+  contact:
+    name: ModelRush
+    url: https://modelrush.ai
+    email: info@modelrush.ai
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+servers:
+- url: https://api.modelrush.ai/v1
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Discovery
+paths:
+  /models:
+    get:
+      operationId: listModels
+      summary: List callable models
+      description: Returns current model capabilities, limits, examples, regions, and the registry revision.
+      tags:
+      - Discovery
+      security: []
+      responses:
+        '200':
+          description: Current model inventory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelList'
+  /regions:
+    get:
+      operationId: listRegions
+      summary: List API surfaces and regions
+      tags:
+      - Discovery
+      security: []
+      responses:
+        '200':
+          description: Current API surfaces and configured regions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionList'
+components:
+  schemas:
+    ModelList:
+      type: object
+      required:
+      - object
+      - data
+      properties:
+        object:
+          const: list
+        data:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - object
+            - owned_by
+            - modality
+            - api_types
+            - available_regions
+            - operations
+            properties:
+              id:
+                type: string
+              object:
+                const: model
+              owned_by:
+                const: modelrush
+              modality:
+                type: string
+              api_types:
+                type: array
+                items:
+                  type: string
+              gateway_status:
+                type: string
+              available_regions:
+                type: array
+                items:
+                  type: string
+              registry_revision:
+                type: string
+              operations:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+            additionalProperties: true
+        registry:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+    RegionList:
+      type: object
+      required:
+      - api_surfaces
+      - platform_surfaces
+      - default_region
+      - regions
+      properties:
+        api_surfaces:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        platform_surfaces:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        default_region:
+          type: string
+        registry_revision:
+          type: string
+        regions:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - label
+            - configured
+            - availableApiTypes
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+              configured:
+                type: boolean
+              availableApiTypes:
+                type: array
+                items:
+                  type: string
+            additionalProperties: true
+      additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: ModelRush API key
+externalDocs:
+  description: ModelRush documentation
+  url: https://modelrush.ai/docs

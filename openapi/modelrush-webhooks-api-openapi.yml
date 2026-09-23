@@ -1,0 +1,143 @@
+openapi: 3.2.0
+info:
+  title: ModelRush Public Webhooks API
+  version: 2026-09-04.3
+  summary: One API for text, image, video, and voice models
+  description: Public discovery and representative authenticated ModelRush API contracts. Model and region availability are time-sensitive; call the discovery endpoints before selecting a model or execution region. Authenticated generation operations may create billable usage. Keep API keys server-side. The Apache-2.0 license covers this API description, not access to the hosted service or its underlying implementation. Service use remains governed by the linked terms of service.
+  termsOfService: https://modelrush.ai/terms
+  contact:
+    name: ModelRush
+    url: https://modelrush.ai
+    email: info@modelrush.ai
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+servers:
+- url: https://api.modelrush.ai/v1
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+paths:
+  /webhooks/endpoints:
+    get:
+      operationId: listWebhookEndpoints
+      summary: List webhook endpoints
+      tags:
+      - Webhooks
+      responses:
+        '200':
+          description: Account webhook endpoints
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - object
+                - data
+                properties:
+                  object:
+                    const: list
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookEndpoint'
+    post:
+      operationId: createWebhookEndpoint
+      summary: Create a signed webhook endpoint
+      description: The signing secret is returned only in the creation response.
+      tags:
+      - Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - url
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  maxLength: 2048
+      responses:
+        '201':
+          description: Created endpoint and one-time signing secret
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/WebhookEndpoint'
+                - type: object
+                  required:
+                  - signing_secret
+                  properties:
+                    signing_secret:
+                      type: string
+                      writeOnly: true
+        4XX:
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      additionalProperties: true
+    ErrorObject:
+      type: object
+      required:
+      - code
+      - message
+      - type
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+      additionalProperties: true
+    WebhookEndpoint:
+      type: object
+      required:
+      - id
+      - object
+      - url
+      - enabled
+      - created_at
+      properties:
+        id:
+          type: string
+        object:
+          const: webhook_endpoint
+        url:
+          type: string
+          format: uri
+        enabled:
+          type: boolean
+        failure_count:
+          type: integer
+        created_at:
+          type: string
+      additionalProperties: true
+  responses:
+    Error:
+      description: Structured API error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: ModelRush API key
+externalDocs:
+  description: ModelRush documentation
+  url: https://modelrush.ai/docs

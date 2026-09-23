@@ -1,0 +1,194 @@
+openapi: 3.2.0
+info:
+  title: ModelRush Public Uploads API
+  version: 2026-09-04.3
+  summary: One API for text, image, video, and voice models
+  description: Public discovery and representative authenticated ModelRush API contracts. Model and region availability are time-sensitive; call the discovery endpoints before selecting a model or execution region. Authenticated generation operations may create billable usage. Keep API keys server-side. The Apache-2.0 license covers this API description, not access to the hosted service or its underlying implementation. Service use remains governed by the linked terms of service.
+  termsOfService: https://modelrush.ai/terms
+  contact:
+    name: ModelRush
+    url: https://modelrush.ai
+    email: info@modelrush.ai
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+servers:
+- url: https://api.modelrush.ai/v1
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Uploads
+paths:
+  /uploads:
+    post:
+      operationId: createUpload
+      summary: Create a private media upload slot
+      tags:
+      - Uploads
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - content_type
+              - size_bytes
+              properties:
+                content_type:
+                  type: string
+                  enum:
+                  - image/jpeg
+                  - image/png
+                  - image/webp
+                  - audio/mpeg
+                  - audio/wav
+                  - audio/x-wav
+                  - audio/mp4
+                  - video/mp4
+                  - video/webm
+                size_bytes:
+                  type: integer
+                  minimum: 1
+                  maximum: 104857600
+      responses:
+        '201':
+          description: Short-lived signed upload URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Upload'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /uploads/{id}:
+    get:
+      operationId: getUpload
+      summary: Inspect and verify an upload
+      tags:
+      - Uploads
+      parameters:
+      - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Upload state and short-lived input URL when ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Upload'
+        '404':
+          $ref: '#/components/responses/Error'
+    delete:
+      operationId: deleteUpload
+      summary: Delete a private upload
+      tags:
+      - Uploads
+      parameters:
+      - $ref: '#/components/parameters/ResourceId'
+      responses:
+        '200':
+          description: Deletion confirmation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - object
+                - deleted
+                properties:
+                  id:
+                    type: string
+                  object:
+                    const: upload
+                  deleted:
+                    const: true
+components:
+  responses:
+    Error:
+      description: Structured API error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorObject:
+      type: object
+      required:
+      - code
+      - message
+      - type
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+      additionalProperties: true
+    Upload:
+      type: object
+      required:
+      - id
+      - object
+      - status
+      - content_type
+      - size_bytes
+      - expires_at
+      properties:
+        id:
+          type: string
+        object:
+          const: upload
+        status:
+          type: string
+        content_type:
+          type: string
+        size_bytes:
+          type: integer
+        duration_seconds:
+          type:
+          - number
+          - 'null'
+        upload_url:
+          type: string
+          format: uri
+          writeOnly: true
+        upload_headers:
+          type: object
+          additionalProperties:
+            type: string
+        upload_url_expires_in:
+          type: integer
+        input_url:
+          type: string
+          format: uri
+          readOnly: true
+        input_url_expires_in:
+          type: integer
+        expires_at:
+          type: string
+      additionalProperties: true
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      additionalProperties: true
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: ModelRush API key
+externalDocs:
+  description: ModelRush documentation
+  url: https://modelrush.ai/docs

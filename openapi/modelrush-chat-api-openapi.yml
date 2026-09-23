@@ -1,0 +1,138 @@
+openapi: 3.2.0
+info:
+  title: ModelRush Public Chat API
+  version: 2026-09-04.3
+  summary: One API for text, image, video, and voice models
+  description: Public discovery and representative authenticated ModelRush API contracts. Model and region availability are time-sensitive; call the discovery endpoints before selecting a model or execution region. Authenticated generation operations may create billable usage. Keep API keys server-side. The Apache-2.0 license covers this API description, not access to the hosted service or its underlying implementation. Service use remains governed by the linked terms of service.
+  termsOfService: https://modelrush.ai/terms
+  contact:
+    name: ModelRush
+    url: https://modelrush.ai
+    email: info@modelrush.ai
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+servers:
+- url: https://api.modelrush.ai/v1
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Chat
+paths:
+  /chat/completions:
+    post:
+      operationId: createChatCompletion
+      summary: Create a chat completion
+      description: Creates a synchronous JSON completion or an SSE stream using an OpenAI-compatible request shape.
+      tags:
+      - Chat
+      x-modelrush-billable: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+      responses:
+        '200':
+          description: Completion object or SSE stream
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+            text/event-stream:
+              schema:
+                type: string
+        4XX:
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      additionalProperties: true
+    ErrorObject:
+      type: object
+      required:
+      - code
+      - message
+      - type
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+      additionalProperties: true
+    ChatCompletionRequest:
+      type: object
+      required:
+      - model
+      - messages
+      properties:
+        model:
+          type: string
+        messages:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required:
+            - role
+            - content
+            properties:
+              role:
+                type: string
+              content: {}
+            additionalProperties: true
+        stream:
+          type: boolean
+          default: false
+        temperature:
+          type: number
+        max_tokens:
+          type: integer
+          minimum: 1
+        reasoning_effort:
+          type: string
+        tools:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        tool_choice: {}
+        parallel_tool_calls:
+          type: boolean
+        response_format:
+          type: object
+          additionalProperties: true
+        stream_options:
+          type: object
+          additionalProperties: true
+        store:
+          const: false
+        region:
+          type: string
+      additionalProperties: true
+  responses:
+    Error:
+      description: Structured API error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: ModelRush API key
+externalDocs:
+  description: ModelRush documentation
+  url: https://modelrush.ai/docs

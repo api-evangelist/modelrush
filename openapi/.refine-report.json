@@ -1,0 +1,34 @@
+{
+  "provider": "modelrush",
+  "sources": [
+    "_original/modelrush-public.openapi.yaml"
+  ],
+  "outputs": [
+    "modelrush-audio-api-openapi.yml",
+    "modelrush-chat-api-openapi.yml",
+    "modelrush-discovery-api-openapi.yml",
+    "modelrush-images-api-openapi.yml",
+    "modelrush-predictions-api-openapi.yml",
+    "modelrush-uploads-api-openapi.yml",
+    "modelrush-video-api-openapi.yml",
+    "modelrush-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "modelrush-public.openapi.yaml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "modelrush-audio-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "modelrush-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "modelrush-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "modelrush-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "modelrush-predictions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "modelrush-uploads-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "modelrush-video-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "modelrush-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
