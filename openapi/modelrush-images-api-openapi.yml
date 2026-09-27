@@ -105,37 +105,6 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
-    Prediction:
-      type: object
-      required:
-      - id
-      - status
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        status:
-          type: string
-          enum:
-          - queued
-          - processing
-          - succeeded
-          - failed
-          - cancelled
-          - expired
-        provider_status:
-          type: string
-        model:
-          type: string
-        modelrush_region:
-          type: string
-        poll_url:
-          type: string
-        output: {}
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      additionalProperties: true
     ErrorObject:
       type: object
       required:
@@ -148,42 +117,6 @@ components:
         message:
           type: string
         type:
-          type: string
-      additionalProperties: true
-    ImageEditRequest:
-      type: object
-      required:
-      - model
-      - image
-      properties:
-        model:
-          type: string
-        prompt:
-          type: string
-          maxLength: 5000
-        image:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        mask:
-          type: string
-        n:
-          type: integer
-          minimum: 1
-          maximum: 4
-        size:
-          type: string
-        quality:
-          type: string
-        output_format:
-          type: string
-        watermark:
-          type: boolean
-        person_rights_confirmed:
-          type: boolean
-        region:
           type: string
       additionalProperties: true
     ErrorResponse:
@@ -223,6 +156,73 @@ components:
           type: boolean
         region:
           type: string
+      additionalProperties: true
+    ImageEditRequest:
+      type: object
+      required:
+      - model
+      - image
+      properties:
+        model:
+          type: string
+        prompt:
+          type: string
+          maxLength: 5000
+        image:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        mask:
+          type: string
+        n:
+          type: integer
+          minimum: 1
+          maximum: 4
+        size:
+          type: string
+        quality:
+          type: string
+        output_format:
+          type: string
+        watermark:
+          type: boolean
+        person_rights_confirmed:
+          type: boolean
+        region:
+          type: string
+      additionalProperties: true
+    Prediction:
+      type: object
+      required:
+      - id
+      - status
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        status:
+          type: string
+          enum:
+          - queued
+          - processing
+          - succeeded
+          - failed
+          - cancelled
+          - expired
+        provider_status:
+          type: string
+        model:
+          type: string
+        modelrush_region:
+          type: string
+        poll_url:
+          type: string
+        output: {}
+        error:
+          $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
   responses:
     Error:

@@ -49,28 +49,6 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      additionalProperties: true
-    ErrorObject:
-      type: object
-      required:
-      - code
-      - message
-      - type
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        type:
-          type: string
-      additionalProperties: true
     ChatCompletionRequest:
       type: object
       required:
@@ -120,6 +98,28 @@ components:
           const: false
         region:
           type: string
+      additionalProperties: true
+    ErrorObject:
+      type: object
+      required:
+      - code
+      - message
+      - type
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+      additionalProperties: true
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
   responses:
     Error:

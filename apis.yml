@@ -3,6 +3,22 @@ description: A multilingual multimodal AI API platform (text, image, video, spee
   -- open-weight families (DeepSeek, GLM, CosyVoice, Fun-ASR) alongside grok-family entries -- behind one bearer
   key with a public keyless model inventory and per-model regional pricing.
 url: https://raw.githubusercontent.com/api-evangelist/modelrush/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  license_evidence:
+    not_product:
+    - moonveil-ai/modelrush-developer-tools
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 created: '2026-09-10'
 modified: '2026-09-10'
 specificationVersion: '0.21'
@@ -13,7 +29,7 @@ tags:
 - Multi-Modal
 - Model Hosting
 - Speech
-- Image-Generation
+- Image Generation
 tags_raw:
 - AI
 - LLM
@@ -22,6 +38,7 @@ tags_raw:
 - Model Hosting
 - Speech
 - Image Generation
+- Image-Generation
 apis:
 - aid: modelrush:modelrush-audio-api
   name: ModelRush Audio API
