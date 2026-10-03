@@ -122,11 +122,34 @@ components:
         type:
           type: string
       additionalProperties: true
-    ErrorResponse:
+    Prediction:
       type: object
       required:
-      - error
+      - id
+      - status
       properties:
+        id:
+          type: string
+        object:
+          type: string
+        status:
+          type: string
+          enum:
+          - queued
+          - processing
+          - succeeded
+          - failed
+          - cancelled
+          - expired
+        provider_status:
+          type: string
+        model:
+          type: string
+        modelrush_region:
+          type: string
+        poll_url:
+          type: string
+        output: {}
         error:
           $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
@@ -157,34 +180,11 @@ components:
       - required:
         - file
       additionalProperties: true
-    Prediction:
+    ErrorResponse:
       type: object
       required:
-      - id
-      - status
+      - error
       properties:
-        id:
-          type: string
-        object:
-          type: string
-        status:
-          type: string
-          enum:
-          - queued
-          - processing
-          - succeeded
-          - failed
-          - cancelled
-          - expired
-        provider_status:
-          type: string
-        model:
-          type: string
-        modelrush_region:
-          type: string
-        poll_url:
-          type: string
-        output: {}
         error:
           $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true

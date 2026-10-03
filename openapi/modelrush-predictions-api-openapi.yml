@@ -69,14 +69,6 @@ components:
         type:
           type: string
       additionalProperties: true
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      additionalProperties: true
     Prediction:
       type: object
       required:
@@ -108,13 +100,14 @@ components:
         error:
           $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
-  parameters:
-    ResourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      additionalProperties: true
   responses:
     Error:
       description: Structured API error
@@ -122,6 +115,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
