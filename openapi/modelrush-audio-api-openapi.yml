@@ -108,6 +108,51 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
+    TranscriptionRequest:
+      type: object
+      required:
+      - model
+      properties:
+        model:
+          type: string
+        audio:
+          type: string
+        file:
+          type: string
+        language:
+          type: string
+        enable_itn:
+          type: boolean
+          default: true
+        parameters:
+          type: object
+          additionalProperties: true
+        region:
+          type: string
+      anyOf:
+      - required:
+        - audio
+      - required:
+        - file
+      additionalProperties: true
+    SpeechRequest:
+      type: object
+      required:
+      - model
+      - input
+      - voice
+      properties:
+        model:
+          type: string
+        input:
+          type: string
+        voice:
+          type: string
+        language_type:
+          type: string
+        region:
+          type: string
+      additionalProperties: true
     ErrorObject:
       type: object
       required:
@@ -121,6 +166,14 @@ components:
           type: string
         type:
           type: string
+      additionalProperties: true
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
     Prediction:
       type: object
@@ -152,59 +205,6 @@ components:
         output: {}
         error:
           $ref: '#/components/schemas/ErrorObject'
-      additionalProperties: true
-    TranscriptionRequest:
-      type: object
-      required:
-      - model
-      properties:
-        model:
-          type: string
-        audio:
-          type: string
-        file:
-          type: string
-        language:
-          type: string
-        enable_itn:
-          type: boolean
-          default: true
-        parameters:
-          type: object
-          additionalProperties: true
-        region:
-          type: string
-      anyOf:
-      - required:
-        - audio
-      - required:
-        - file
-      additionalProperties: true
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      additionalProperties: true
-    SpeechRequest:
-      type: object
-      required:
-      - model
-      - input
-      - voice
-      properties:
-        model:
-          type: string
-        input:
-          type: string
-        voice:
-          type: string
-        language_type:
-          type: string
-        region:
-          type: string
       additionalProperties: true
   responses:
     Error:

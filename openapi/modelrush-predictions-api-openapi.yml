@@ -54,6 +54,20 @@ paths:
         '409':
           $ref: '#/components/responses/Error'
 components:
+  responses:
+    Error:
+      description: Structured API error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
     ErrorObject:
       type: object
@@ -68,6 +82,14 @@ components:
           type: string
         type:
           type: string
+      additionalProperties: true
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
     Prediction:
       type: object
@@ -100,28 +122,6 @@ components:
         error:
           $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      additionalProperties: true
-  responses:
-    Error:
-      description: Structured API error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    ResourceId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

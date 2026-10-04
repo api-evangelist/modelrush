@@ -84,50 +84,6 @@ apis:
     url: plans/modelrush-plans-pricing.yml
   - type: RateLimits
     url: rate-limits/modelrush-rate-limits.yml
-- aid: modelrush:modelrush-chat-api
-  name: ModelRush Chat API
-  description: The Chat API from ModelRush — 1 operation(s) for chat.
-  humanURL: https://modelrush.ai/docs
-  baseURL: https://api.modelrush.ai/v1
-  tags:
-  - Chat
-  properties:
-  - type: OpenAPI
-    url: openapi/modelrush-chat-api-openapi.yml
-  - type: Documentation
-    url: https://modelrush.ai/docs
-  - type: APIReference
-    url: https://modelrush.ai/docs/api/chat-completions
-  - type: GettingStarted
-    url: https://modelrush.ai/docs/quickstart
-  - type: LLMsTxt
-    url: https://modelrush.ai/llms.txt
-  - type: X-ModelInventory
-    url: https://api.modelrush.ai/v1/models
-  - type: Pricing
-    url: https://modelrush.ai/pricing
-  - type: SourceCode
-    url: https://github.com/Moonveil-AI/modelrush-developer-tools
-  - type: Postman
-    url: postman/ModelRush-Public-API.postman_collection.json
-  - type: Webhooks
-    url: asyncapi/modelrush-webhooks.yml
-  - type: ErrorCatalog
-    url: errors/modelrush-problem-types.yml
-  - type: Conventions
-    url: conventions/modelrush-conventions.yml
-  - type: Conformance
-    url: conformance/modelrush-conformance.yml
-  - type: DataModel
-    url: data-model/modelrush-data-model.yml
-  - type: Lifecycle
-    url: lifecycle/modelrush-lifecycle.yml
-  - type: ChangeLog
-    url: changelog/modelrush-changelog.yml
-  - type: Plans
-    url: plans/modelrush-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/modelrush-rate-limits.yml
 - aid: modelrush:modelrush-discovery-api
   name: ModelRush Discovery API
   description: The Discovery API from ModelRush — 2 operation(s) for discovery.
@@ -362,6 +318,50 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/modelrush-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://modelrush.ai/docs
+  - type: APIReference
+    url: https://modelrush.ai/docs/api/chat-completions
+  - type: GettingStarted
+    url: https://modelrush.ai/docs/quickstart
+  - type: LLMsTxt
+    url: https://modelrush.ai/llms.txt
+  - type: X-ModelInventory
+    url: https://api.modelrush.ai/v1/models
+  - type: Pricing
+    url: https://modelrush.ai/pricing
+  - type: SourceCode
+    url: https://github.com/Moonveil-AI/modelrush-developer-tools
+  - type: Postman
+    url: postman/ModelRush-Public-API.postman_collection.json
+  - type: Webhooks
+    url: asyncapi/modelrush-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/modelrush-problem-types.yml
+  - type: Conventions
+    url: conventions/modelrush-conventions.yml
+  - type: Conformance
+    url: conformance/modelrush-conformance.yml
+  - type: DataModel
+    url: data-model/modelrush-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/modelrush-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/modelrush-changelog.yml
+  - type: Plans
+    url: plans/modelrush-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/modelrush-rate-limits.yml
+- aid: modelrush:modelrush-chat-completions-api
+  name: ModelRush Chat Completions API
+  description: The Chat Completions API from ModelRush — 1 operation(s) for chat completions.
+  humanURL: https://modelrush.ai/docs
+  baseURL: https://api.modelrush.ai/v1
+  tags:
+  - Chat Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/modelrush-chat-completions-api-openapi.yml
   - type: Documentation
     url: https://modelrush.ai/docs
   - type: APIReference

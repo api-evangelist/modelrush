@@ -105,81 +105,6 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
-    ImageGenerationRequest:
-      type: object
-      required:
-      - model
-      - prompt
-      properties:
-        model:
-          type: string
-        prompt:
-          type: string
-          minLength: 1
-          maxLength: 5000
-        n:
-          type: integer
-          minimum: 1
-          maximum: 4
-          default: 1
-        size:
-          type: string
-        quality:
-          type: string
-        output_format:
-          type: string
-        watermark:
-          type: boolean
-        thinking_mode:
-          type: boolean
-        region:
-          type: string
-      additionalProperties: true
-    ErrorObject:
-      type: object
-      required:
-      - code
-      - message
-      - type
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        type:
-          type: string
-      additionalProperties: true
-    Prediction:
-      type: object
-      required:
-      - id
-      - status
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        status:
-          type: string
-          enum:
-          - queued
-          - processing
-          - succeeded
-          - failed
-          - cancelled
-          - expired
-        provider_status:
-          type: string
-        model:
-          type: string
-        modelrush_region:
-          type: string
-        poll_url:
-          type: string
-        output: {}
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      additionalProperties: true
     ImageEditRequest:
       type: object
       required:
@@ -216,11 +141,86 @@ components:
         region:
           type: string
       additionalProperties: true
+    ErrorObject:
+      type: object
+      required:
+      - code
+      - message
+      - type
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+      additionalProperties: true
+    ImageGenerationRequest:
+      type: object
+      required:
+      - model
+      - prompt
+      properties:
+        model:
+          type: string
+        prompt:
+          type: string
+          minLength: 1
+          maxLength: 5000
+        n:
+          type: integer
+          minimum: 1
+          maximum: 4
+          default: 1
+        size:
+          type: string
+        quality:
+          type: string
+        output_format:
+          type: string
+        watermark:
+          type: boolean
+        thinking_mode:
+          type: boolean
+        region:
+          type: string
+      additionalProperties: true
     ErrorResponse:
       type: object
       required:
       - error
       properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      additionalProperties: true
+    Prediction:
+      type: object
+      required:
+      - id
+      - status
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        status:
+          type: string
+          enum:
+          - queued
+          - processing
+          - succeeded
+          - failed
+          - cancelled
+          - expired
+        provider_status:
+          type: string
+        model:
+          type: string
+        modelrush_region:
+          type: string
+        poll_url:
+          type: string
+        output: {}
         error:
           $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true

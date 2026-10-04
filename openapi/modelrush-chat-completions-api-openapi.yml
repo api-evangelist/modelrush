@@ -18,7 +18,7 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: Chat
+- name: Chat Completions
 paths:
   /chat/completions:
     post:
@@ -26,7 +26,7 @@ paths:
       summary: Create a chat completion
       description: Creates a synchronous JSON completion or an SSE stream using an OpenAI-compatible request shape.
       tags:
-      - Chat
+      - Chat Completions
       x-modelrush-billable: true
       requestBody:
         required: true
@@ -49,6 +49,14 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      additionalProperties: true
     ErrorObject:
       type: object
       required:
@@ -112,14 +120,6 @@ components:
           const: false
         region:
           type: string
-      additionalProperties: true
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
   responses:
     Error:
