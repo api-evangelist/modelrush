@@ -397,6 +397,10 @@ apis:
   - type: RateLimits
     url: rate-limits/modelrush-rate-limits.yml
 common:
+- type: Plans
+  url: plans/modelrush-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/modelrush-rate-limits.yml
 - type: MCPServer
   url: mcp/modelrush-mcp.yml
 - type: Overlay
