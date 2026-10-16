@@ -15,7 +15,7 @@ edges:
     note: 'modelrush declares OpenAI compatibility: ''description: Creates a synchronous JSON completion or an SSE
       stream using an OpenAI-compatible request shape.'''
     detected_by: sweep-model-routing.py
-    detected: '2026-10-13'
+    detected: '2026-10-15'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
 generated: '2026-10-13'
