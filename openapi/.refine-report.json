@@ -13,17 +13,20 @@
     "modelrush-video-api-openapi.yml",
     "modelrush-webhooks-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "modelrush-public.openapi.yaml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "superseded outputs removed: modelrush-chat-completions-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 8 total)"
   ],
   "skipped": [
     "modelrush-audio-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "modelrush-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "modelrush-chat-completions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "modelrush-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "modelrush-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "modelrush-predictions-api-openapi.yml: previously refined output, superseded by openapi/_original/",

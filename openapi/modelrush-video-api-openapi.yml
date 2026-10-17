@@ -112,6 +112,14 @@ components:
         region:
           type: string
       additionalProperties: true
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      additionalProperties: true
     ErrorObject:
       type: object
       required:
@@ -125,14 +133,6 @@ components:
           type: string
         type:
           type: string
-      additionalProperties: true
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
     Prediction:
       type: object
@@ -165,13 +165,6 @@ components:
         error:
           $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
-  responses:
-    Error:
-      description: Structured API error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     ResourceId:
       name: id
@@ -179,6 +172,13 @@ components:
       required: true
       schema:
         type: string
+  responses:
+    Error:
+      description: Structured API error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

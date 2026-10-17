@@ -108,6 +108,24 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
+    SpeechRequest:
+      type: object
+      required:
+      - model
+      - input
+      - voice
+      properties:
+        model:
+          type: string
+        input:
+          type: string
+        voice:
+          type: string
+        language_type:
+          type: string
+        region:
+          type: string
+      additionalProperties: true
     TranscriptionRequest:
       type: object
       required:
@@ -135,23 +153,13 @@ components:
       - required:
         - file
       additionalProperties: true
-    SpeechRequest:
+    ErrorResponse:
       type: object
       required:
-      - model
-      - input
-      - voice
+      - error
       properties:
-        model:
-          type: string
-        input:
-          type: string
-        voice:
-          type: string
-        language_type:
-          type: string
-        region:
-          type: string
+        error:
+          $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
     ErrorObject:
       type: object
@@ -166,14 +174,6 @@ components:
           type: string
         type:
           type: string
-      additionalProperties: true
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
       additionalProperties: true
     Prediction:
       type: object
