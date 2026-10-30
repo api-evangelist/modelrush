@@ -1,4 +1,4 @@
-# modelrush
+# ModelRush
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -65,3 +65,135 @@
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
 A multilingual multimodal AI API platform (text, image, video, speech) serving a hosted model catalog -- open-weight families (DeepSeek, GLM, CosyVoice, Fun-ASR) alongside grok-family entries -- behind one bearer key with a public keyless model inventory and per-model regional pricing.
+
+**Areas:** Artificial Intelligence · LLM · Inference · Multi-Modal · Model Hosting · Speech · Image Generation
+
+## ModelRush on APIs.io
+
+Everything profiled for ModelRush is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/modelrush/](https://apis.io/providers/modelrush/)** — or go straight to one of the APIs or properties below.
+
+### APIs (8)
+
+- [ModelRush Audio API](https://apis.io/apis/modelrush/modelrush-audio-api/) — The Audio API from ModelRush — 2 operation(s) for audio.
+- [ModelRush Discovery API](https://apis.io/apis/modelrush/modelrush-discovery-api/) — The Discovery API from ModelRush — 2 operation(s) for discovery.
+- [ModelRush Images API](https://apis.io/apis/modelrush/modelrush-images-api/) — The Images API from ModelRush — 2 operation(s) for images.
+- [ModelRush Predictions API](https://apis.io/apis/modelrush/modelrush-predictions-api/) — The Predictions API from ModelRush — 1 operation(s) for predictions.
+- [ModelRush Uploads API](https://apis.io/apis/modelrush/modelrush-uploads-api/) — The Uploads API from ModelRush — 2 operation(s) for uploads.
+- [ModelRush Video API](https://apis.io/apis/modelrush/modelrush-video-api/) — The Video API from ModelRush — 2 operation(s) for video.
+- [ModelRush Webhooks API](https://apis.io/apis/modelrush/modelrush-webhooks-api/) — The Webhooks API from ModelRush — 1 operation(s) for webhooks.
+- [ModelRush Chat Completions API](https://apis.io/apis/modelrush/modelrush-chat-completions-api/) — The Chat Completions API from ModelRush — 1 operation(s) for chat completions.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Modelrush Webhooks](https://apis.io/asyncapis/modelrush/modelrush-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [modelrush-mcp.yml](https://apis.io/servers/modelrush/modelrush-mcp-yml/)
+
+#### Collections (1)
+
+Postman and Open Collection request collections.
+
+- [ModelRush Public API](https://apis.io/collections/modelrush/postman-ModelRush-Public-API/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Modelrush Public Overlay](https://apis.io/overlays/modelrush/modelrush-public-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Modelrush Authentication](https://apis.io/security/modelrush/modelrush-authentication/)
+- [Modelrush Domain Security](https://apis.io/security/modelrush/modelrush-domain-security/)
+- [Modelrush Vulnerability Disclosure](https://apis.io/security/modelrush/modelrush-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Modelrush Plans Pricing](https://apis.io/plans/modelrush/modelrush-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Modelrush Rate Limits](https://apis.io/rate-limits/modelrush/modelrush-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://modelrush.ai)
+- [Sign up](https://modelrush.ai/sign-up)
+- [Support](https://modelrush.ai/docs/faq)
+- [Blog](https://modelrush.ai/blog)
+- [Terms of service](https://modelrush.ai/terms)
+- [Privacy policy](https://modelrush.ai/privacy)
+- [GitHub](https://github.com/Moonveil-AI)
+
+## API Evangelist rating
+
+**Kin Score 46.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 69.6 |
+| Contract quality | 55.8 |
+| Contract governance | 4.5 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 53.7 |
+| Access clarity | 44.7 |
+
+**Agent readiness 28.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 28.2** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/modelrush/](https://apis.io/providers/modelrush/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for ModelRush: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/modelrush/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
